@@ -1,0 +1,37 @@
+--// Services
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+
+--// List of usernames to detect
+local StaffList = {
+    ["Exoticsocket87"] = true,
+    ["SalvadorGarcia762"] = true,
+    ["1VexeD1"] = true,
+    ["littleluis009"] = true,
+    ["alexgoodguyc"] = true,
+    ["Bird052565"] = true,
+}
+
+--// Function to show a notification
+local function NotifyStaffJoin(player)
+    StarterGui:SetCore("SendNotification", {
+        Title = "⚠️ STAFF Joined",
+        Text = "Staff " .. player.Name .. " has joined the game",
+        Duration = 10,
+    })
+    print("[STAFF DETECT] " .. player.Name .. " has joined.")
+end
+
+--// Detect when a player joins
+Players.PlayerAdded:Connect(function(player)
+    if StaffList[player.Name] then
+        NotifyStaffJoin(player)
+    end
+end)
+
+--// Detect if one of them is already in the game
+for _, player in ipairs(Players:GetPlayers()) do
+    if StaffList[player.Name] then
+        NotifyStaffJoin(player)
+    end
+end
